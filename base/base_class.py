@@ -68,7 +68,7 @@ class Base:
                         EC.presence_of_element_located((By.CSS_SELECTOR, ".catalog-content__prods-bg.show"))
                     )
                 else:
-                    print(f"Failed to click element after {retries} attempts: {locator_name}")  # Ошибка, если не удалось кликнуть по элементу
+                    print(f"Failed to click element after {retries} attempts: {locator_name}")  # Ошибка, если не удалосm кликнуть по элементу
                     self.take_screenshot('intercepted_element')
                     raise
             except Exception as e:
