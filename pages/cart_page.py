@@ -1,5 +1,8 @@
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from base.base_class import Base
 
 class Cart_page(Base):
@@ -19,7 +22,10 @@ class Cart_page(Base):
     """Method of enter the text"""
     def enter_text(self, locator_name, text):
         try:
-            element = self.driver.find_element(*self.locators[locator_name])
+            locator = self.locators[locator_name]
+            element = WebDriverWait(self.driver, 30).until(
+                EC.visibility_of_element_located(locator)
+            )
             element.clear()
             element.send_keys(text)
             print(f"Entered text '{text}' into element: {locator_name}")
