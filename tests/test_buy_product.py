@@ -1,4 +1,5 @@
 import pytest
+import allure
 from selenium import webdriver
 from pages.main_page import Main_page
 from pages.catalog_page import Catalog_page

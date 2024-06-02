@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from base.base_class import Base
 
@@ -20,11 +21,12 @@ class Main_page(Base):
 
     # Methods
     def get_all_apples(self):
-        self.driver.get(self.url)
-        self.driver.maximize_window()
-        self.get_current_url()
-        self.get_assert_url(self.url)
-        self.click_close_modal()
-        self.move_to_all_items()
-        self.click_all_apple()
+        with allure.step("get all apples"):
+            self.driver.get(self.url)
+            self.driver.maximize_window()
+            self.get_current_url()
+            self.get_assert_url(self.url)
+            self.click_close_modal()
+            self.move_to_all_items()
+            self.click_all_apple()
 

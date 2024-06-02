@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from base.base_class import Base
 
@@ -23,10 +24,11 @@ class Product_page(Base):
 
     # Methods
     def add_product_to_cart(self):
-        self.get_current_url()
-        self.get_assert_url(self.url)
-        self.click_close_modal()
-        self.click_radio_button()
-        self.click_add_to_cart()
-        self.click_go_to_cart()
-        print('Product added to cart')
+        with allure.step("add product to cart"):
+            self.get_current_url()
+            self.get_assert_url(self.url)
+            self.click_close_modal()
+            self.click_radio_button()
+            self.click_add_to_cart()
+            self.click_go_to_cart()
+            print('Product added to cart')

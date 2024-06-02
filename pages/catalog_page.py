@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from base.base_class import Base
 
@@ -42,15 +43,16 @@ class Catalog_page(Base):
 
     # Methods
     def select_product(self):
-        self.get_current_url()
-        self.get_assert_url('https://biggeek.ru/catalog/apple')
-        self.click_close_modal()
-        self.click_apple_iphone()
-        self.click_model()
-        self.click_memory()
-        self.click_color()
-        self.click_sort_items()
-        self.click_sort_price()
-        self.click_open_product()
-        print('Product selected')
+        with allure.step("select product"):
+            self.get_current_url()
+            self.get_assert_url('https://biggeek.ru/catalog/apple')
+            self.click_close_modal()
+            self.click_apple_iphone()
+            self.click_model()
+            self.click_memory()
+            self.click_color()
+            self.click_sort_items()
+            self.click_sort_price()
+            self.click_open_product()
+            print('Product selected')
 
