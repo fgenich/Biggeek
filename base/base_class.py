@@ -48,6 +48,7 @@ class Base:
                 element = WebDriverWait(self.driver, 30).until(
                     EC.element_to_be_clickable(locator)
                 )
+                self.scroll_to_element_center(element)
                 element.click()
                 print(f"Clicked element: {locator_name}")
                 return
@@ -64,9 +65,7 @@ class Base:
             except ElementClickInterceptedException:
                 if attempt < retries - 1:
                     print(f"Element click intercepted, retrying: {locator_name}")  # Предупреждение о перехваченном клике
-                    WebDriverWait(self.driver, 5).until_not(
-                        EC.presence_of_element_located((By.CSS_SELECTOR, ".catalog-content__prods-bg.show"))
-                    )
+                    self.handle_intercepted_click(locator)
                 else:
                     print(f"Failed to click element after {retries} attempts: {locator_name}")  # Ошибка, если не удалосm кликнуть по элементу
                     self.take_screenshot('intercepted_element')
@@ -75,6 +74,33 @@ class Base:
                 print(f"Error clicking element: {locator_name} - {e}")  # Общая ошибка клика по элементу
                 self.take_screenshot('exception')
                 raise
+
+    """where another element is intercepting the click"""
+    def handle_intercepted_click(self, locator):
+        try:
+            WebDriverWait(self.driver, 5).until_not(
+                EC.presence_of_element_located((By.CSS_SELECTOR, ".catalog-content__prods-bg.show"))
+            )
+            element = WebDriverWait(self.driver, 30).until(
+                EC.element_to_be_clickable(locator)
+            )
+            self.scroll_to_element(element)  # Убедимся, что элемент доступен
+            element.click()
+        except Exception as e:
+            print(f"Error handling intercepted click: {e}")
+            self.take_screenshot('handle_intercepted_click')
+            raise
+
+    """Method to scroll to an element"""
+
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        print("Scrolled to element")
+
+    """Method to scroll to an element center"""
+    def scroll_to_element_center(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element)
+        print("Scrolled to element center")
 
     """Method screenshot"""
 
