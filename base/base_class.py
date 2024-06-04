@@ -13,17 +13,17 @@ class Base:
         self.driver = driver
         self.action = ActionChains(driver)
 
+    # Locators
+    locators = {
+        'close_modal_inner': (By.XPATH, '//button[@class="we-closed-modal__close"]')
+    }
+
+    # Methods
     """Method to get current URL"""
     def get_current_url(self):
         get_url = self.driver.current_url
         print(f"Current URL: {get_url}")
         return get_url
-
-
-    # Locators
-    locators = {
-        'close_modal_inner': (By.XPATH, '//button[@class="we-closed-modal__close"]')
-    }
 
     """Method for closing the modal window"""
     def click_close_modal(self):

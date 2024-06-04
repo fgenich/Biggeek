@@ -19,8 +19,8 @@ class Cart_page(Base):
             'confirm_button': (By.XPATH, '//button[contains(text(),"Оформить")]')
         })
 
-    """Method of enter the text"""
-    def enter_text(self, locator_name, text):
+    # Actions
+    def enter_text(self, locator_name, text):  # Ввод текста с использованием явного ожидания
         try:
             locator = self.locators[locator_name]
             element = WebDriverWait(self.driver, 30).until(
@@ -34,12 +34,10 @@ class Cart_page(Base):
             self.take_screenshot(f'enter_text_error_{locator_name}')
             raise
 
-    """Method of click the checkbox"""
-    def click_checkbox_1(self):
+    def click_checkbox_1(self):  # Клик на чекбокс
         self.click_element('checkbox_1')
 
-    """Method of click the confirm button"""
-    def click_confirm_button(self):
+    def click_confirm_button(self):  # Клик на кнопку подверждения
         self.click_element('confirm_button')
 
     """Method of confirmation order"""
