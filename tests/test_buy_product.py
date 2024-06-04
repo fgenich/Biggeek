@@ -6,6 +6,7 @@ from pages.catalog_page import Catalog_page
 from pages.product_page import Product_page
 from pages.cart_page import Cart_page
 
+"""Поиск нужного товара с помощью фтльтра по котологу и его оформление"""
 def test_buy_product():
     options = webdriver.ChromeOptions()
     # options.add_argument('--headless')
@@ -13,16 +14,16 @@ def test_buy_product():
     print('Start test')
 
     mp = Main_page(driver)
-    mp.get_all_apples()
+    mp.get_all_apples()  # Переход в каталог со всеми товарами Apple
 
     cp = Catalog_page(driver)
-    cp.select_product()
+    cp.select_product()  # Выбор критерий фильтра и переход на нужный товар
 
     pp = Product_page(driver)
-    pp.add_product_to_cart()
+    pp.add_product_to_cart()  # Добавление товара в каризну
 
     cart_p = Cart_page(driver)
-    cart_p.confirmation()
+    cart_p.confirmation()  # Подтверждение покупки
 
     print('End test')
 

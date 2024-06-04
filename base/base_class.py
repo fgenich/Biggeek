@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from selenium.common import NoSuchElementException, StaleElementReferenceException, TimeoutException, \
     ElementClickInterceptedException
@@ -104,10 +105,17 @@ class Base:
 
     """Method screenshot"""
 
-    def take_screenshot(self, name, directory='/Users/fgenich/PycharmProjects/Biggeek/screen/'):
+    def take_screenshot(self, name):
         now_date = datetime.datetime.today().strftime("%Y.%m.%d.%H.%M.%S")
         name_screenshot = f"{name}{now_date}.png"
-        self.driver.save_screenshot(f'{directory}{name_screenshot}')
+        # Путь к папке screen в корне проекта
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        screenshots_dir = os.path.join(project_root, 'screen')
+        if not os.path.exists(screenshots_dir):
+            os.makedirs(screenshots_dir)
+        screenshot_path = os.path.join(screenshots_dir, name_screenshot)
+        self.driver.save_screenshot(screenshot_path)
+        print(f"Screenshot saved to {screenshot_path}")
 
     """Method assert URL"""
 
