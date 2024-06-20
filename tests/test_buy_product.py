@@ -6,8 +6,9 @@ from pages.catalog_page import Catalog_page
 from pages.product_page import Product_page
 from pages.cart_page import Cart_page
 
-"""Поиск нужного товара с помощью фтльтра по котологу и его оформление"""
+
 def test_buy_product():
+    """Поиск нужного товара с помощью фтльтра по котологу и его оформление"""
     options = webdriver.ChromeOptions()
     # options.add_argument('--headless')
     driver = webdriver.Chrome(options=options)

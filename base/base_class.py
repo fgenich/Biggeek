@@ -19,14 +19,14 @@ class Base:
     }
 
     # Methods
-    """Method to get current URL"""
     def get_current_url(self):
+        """Method to get current URL"""
         get_url = self.driver.current_url
         print(f"Current URL: {get_url}")
         return get_url
 
-    """Method for closing the modal window"""
     def click_close_modal(self):
+        """Method for closing the modal window"""
         try:
             close_button = WebDriverWait(self.driver, 30).until(
                 EC.element_to_be_clickable(self.locators['close_modal_inner'])
@@ -41,8 +41,8 @@ class Base:
         except Exception as e:
             print(f"Error while closing modal: {e}")  # Общая ошибка закрытия модального окна
 
-    """Method for clicking on the elements"""
     def click_element(self, locator_name, retries=3):
+        """Method for clicking on the elements"""
         locator = self.locators[locator_name]
         for attempt in range(retries):
             try:
@@ -76,8 +76,8 @@ class Base:
                 self.take_screenshot('exception')
                 raise
 
-    """where another element is intercepting the click"""
     def handle_intercepted_click(self, locator):
+        """where another element is intercepting the click"""
         try:
             WebDriverWait(self.driver, 5).until_not(
                 EC.presence_of_element_located((By.CSS_SELECTOR, ".catalog-content__prods-bg.show"))
@@ -92,20 +92,19 @@ class Base:
             self.take_screenshot('handle_intercepted_click')
             raise
 
-    """Method to scroll to an element"""
 
     def scroll_to_element(self, element):
+        """Method to scroll to an element"""
         self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
         print("Scrolled to element")
 
-    """Method to scroll to an element center"""
     def scroll_to_element_center(self, element):
+        """Method to scroll to an element center"""
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element)
         print("Scrolled to element center")
 
-    """Method screenshot"""
-
     def take_screenshot(self, name):
+        """Method screenshot"""
         now_date = datetime.datetime.today().strftime("%Y.%m.%d.%H.%M.%S")
         name_screenshot = f"{name}{now_date}.png"
         # Путь к папке screen в корне проекта
@@ -117,9 +116,8 @@ class Base:
         self.driver.save_screenshot(screenshot_path)
         print(f"Screenshot saved to {screenshot_path}")
 
-    """Method assert URL"""
-
     def get_assert_url(self, result):
+        """Method assert URL"""
         get_url = self.driver.current_url
         assert get_url == result
         print(f"Good assertion URL: {get_url}")

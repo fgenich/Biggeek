@@ -40,8 +40,8 @@ class Cart_page(Base):
     def click_confirm_button(self):  # Клик на кнопку подверждения
         self.click_element('confirm_button')
 
-    """Method of confirmation order"""
     def confirmation(self):
+        """Method of confirmation order"""
         with allure.step('Confirm order'):
             try:
                 self.click_close_modal()
